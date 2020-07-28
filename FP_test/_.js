@@ -138,15 +138,31 @@ console.log(
 )
 
 //_pipe
-const _pipe = (...args) => {
-    return (arg) => {
-        return _reduce(args, (arg, fn) => {
-            return fn(arg);
-        }, arg);
-    }
-}
+// function _pipe() {
+//     var fns = arguments;
+//     return function(arg) {
+//         return _reduce(fns, function(arg, fn){
+//             return fn(arg);
+//         }, arg);
+//     }
+// }
+
+const _pipe = (...fns) => (arg) => _reduce(fns, (arg, fn) => fn(arg), arg); 
 
 var f1 = _pipe(
     (a) => { return a + 1; },
-    (a) => { return a * 2; });
+    (a) => { return a * 2; },
+    (a) => { return a * a; },
+    (a) => { return a + 4; });
+
 console.log(f1(1));
+
+var a = 1;
+
+    // return _reduce(fns, function(arg, fn){ return fn(1); }, 1);
+
+    // _reduce = function(fns, iter, arg){
+    //     _each(fns, (val) => {
+    //         arg = iter(arg, val);
+    //     })
+    // }
