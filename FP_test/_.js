@@ -62,17 +62,19 @@ _map([1, 2, 3, 4], (v) => {
 });
 
 //커링
-const _curry = (fn) => {
-    return (a, ...args) => {
-        return args.length == 1 ? fn(a, args[0]) : (b) => fn(a, b);
-    }
-}
+// const _curry = (fn) => {
+//     return (a, ...args) => {
+//         return args.length == 1 ? fn(a, args[0]) : (b) => fn(a, b);
+//     }
+// }
 // Curry Right
-const _curryr = (fn) => {
-    return (a, ...args) => {
-        return args.length == 1 ? fn(a, args[0]) : (b) => fn(b, a);
-    }
-}
+// const _curryr = (fn) => {
+//     return (a, ...args) => {
+//         return args.length == 1 ? fn(a, args[0]) : (b) => fn(b, a);
+//     }
+// }
+const _curry = (fn) => (a, ...args) => args.length == 1 ? fn(a, args[0]) : (b) => fn(a, b);
+const _curryr = (fn) => (a, ...args) => args.length == 1 ? fn(a, args[0]) : (b) => fn(b, a);
 
 var add = _curry((a, b) => {
     return a + b;
@@ -87,17 +89,21 @@ var sub = _curryr((a, b) => {
 });
 var sub10 = sub(10);
 
-// console.log(sub10(5));
-// console.log(sub(10, 3));
+console.log('sub-------------------------')
+console.log(sub10(5));
+console.log(sub(10, 3));
 
 // _get
 // 없는 객체에서 값을 참조하려할 경우 오류가 나지만, _get 메소드를 만들어서 사용함으로써 안전하게 사용가능하다.
-const _get = _curryr((obj, key) => {
-    return obj == null ? undefined : obj[key];
-});
+// const _get = _curryr((obj, key) => {
+//     return obj == null ? undefined : obj[key];
+// });
+const _get = _curryr((obj, key) => obj == null ? undefined : obj[key] );
 var user1 = users[0];
-// console.log(_get(user1, 'name'));
-// console.log(_get(users[10], 'name'));
+
+console.log("get-------------------------")
+console.log(_get(user1, 'name'));
+console.log(_get(users[10], 'name'));
 
 const get_name = _get('name');
 
@@ -110,7 +116,6 @@ console.log(
     )
 )
 
-console.clear();
 // _reduce 만들기(pipe의 보다 특화된 버전이라고 볼 수 있다)
 const slice = Array.prototype.slice;
 
