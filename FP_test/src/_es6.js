@@ -199,3 +199,5 @@ go(users,
     take(2),
     reduce(add),
     log);
+
+//함수형 프로그래밍 모나드
